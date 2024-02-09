@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace api.Responses;
+﻿namespace Messages.Responses;
 
 public record PrimeResponse
 {

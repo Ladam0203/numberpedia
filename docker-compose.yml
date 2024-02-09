@@ -1,8 +1,8 @@
 services: 
-  api:
+  prime-service:
     build:
       context: .
-      dockerfile: api/Dockerfile
+      dockerfile: PrimeService/Dockerfile
     ports:
       - 8080:8080
   cli:
@@ -10,4 +10,4 @@ services:
       context: .
       dockerfile: cli/Dockerfile
     depends_on:
-      - api
+      - prime-service

@@ -1,14 +1,14 @@
-﻿using api.Requests;
-using api.Responses;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Messages.Requests;
+using Messages.Responses;
 
-namespace api.Controllers;
+namespace PrimeService.Controllers;
 
-[Route("api/[controller]")]
+[Route("[controller]")]
 [ApiController]
 public class PrimeController : Controller
 {
-    // POST api/prime
+    // POST PrimeService0/prime
     [HttpPost]
     public IActionResult Post([FromBody] PrimeRequest request)
     {
