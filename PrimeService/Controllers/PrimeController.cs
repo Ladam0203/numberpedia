@@ -13,13 +13,24 @@ public class PrimeController : Controller
     public IActionResult Post([FromBody] PrimeRequest request)
     {
         //Validation
-        if (request.Number < 2)
+        if (!(request.Number > 0))
         {
-            return BadRequest("Number must be greater than 1");
+            return BadRequest("Number must be greater than 0");
         }
 
         //Calculation
         var watch = System.Diagnostics.Stopwatch.StartNew();
+        
+        if (request.Number == 1)
+        {
+            watch.Stop();
+            return Ok(new PrimeResponse
+            {
+                Number = request.Number,
+                IsPrime = false,
+                ElapsedMilliseconds = watch.ElapsedMilliseconds
+            });
+        }
         
         var isPrime = true;
         for (ulong i = 2; i < request.Number; i++)
