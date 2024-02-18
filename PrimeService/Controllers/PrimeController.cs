@@ -8,7 +8,7 @@ namespace PrimeService.Controllers;
 [ApiController]
 public class PrimeController : Controller
 {
-    // POST PrimeService0/prime
+    // POST PrimeService/prime
     [HttpPost]
     public IActionResult Post([FromBody] PrimeRequest request)
     {
@@ -18,29 +18,11 @@ public class PrimeController : Controller
             return BadRequest("Number must be greater than 0");
         }
 
-        //Calculation
+        //Benchmark
         var watch = System.Diagnostics.Stopwatch.StartNew();
         
-        if (request.Number == 1)
-        {
-            watch.Stop();
-            return Ok(new PrimeResponse
-            {
-                Number = request.Number,
-                IsPrime = false,
-                ElapsedMilliseconds = watch.ElapsedMilliseconds
-            });
-        }
-        
-        var isPrime = true;
-        for (ulong i = 2; i < request.Number; i++)
-        {
-            if (request.Number % i == 0)
-            {
-                isPrime = false;
-                break;
-            }
-        }
+        //Logic
+        var isPrime = IsPrime(request.Number);
         
         watch.Stop();
 
@@ -51,5 +33,28 @@ public class PrimeController : Controller
             IsPrime = isPrime,
             ElapsedMilliseconds = watch.ElapsedMilliseconds
         });
+    }
+    
+    private bool IsPrime(ulong number)
+    {
+        if (number < 1)
+        {
+            throw new ArgumentException("A prime number must be positive.");
+        }
+        
+        if (number == 1)
+        {
+            return false;
+        }
+        
+        for (ulong i = 2; i < number; i++)
+        {
+            if (number % i == 0)
+            {
+                return false;
+            }
+        }
+        
+        return true;
     }
 }
